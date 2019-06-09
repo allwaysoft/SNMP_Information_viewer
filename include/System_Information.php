@@ -201,6 +201,43 @@ error_reporting(0);
 				$this->data_fetched = 'no';
 			}
 			//---------- SYSTEM LOCATION ENDS HERE
+
+//---------- hrSystemDate STARTS HERE
+			if(snmpget($this->host_address, 'public', '.iso.org.dod.internet.mgmt.mib-2.system.sysObjectID.0', 300) != FALSE)
+			{
+				$this->data_fetched = 'yes';
+				$data = snmpget($this->host_address, 'public', '.iso.org.dod.internet.mgmt.mib-2.system.sysObjectID.0', 300);
+				if(strlen($data) == 0)
+				{
+					$data = '<span id="no_data_received">No data received</span>';
+				}
+				else
+				{
+					if($data == 'STRING: ')
+					{
+						$data = '<span id="no_data_received">No data received</span>';
+					}
+					else
+					{
+						if(substr_count($data, 'STRING: ') > 0)
+                        {
+                            $data = substr($data, strlen('STRING: '), strlen($data));
+                        }
+                        else
+                        {
+                            $data = $data;
+                        }
+					}
+				}
+				$this->data_array['system datetime'] = $data;
+			}
+			else
+			{
+				$this->data_array['system datetime'] = '<span id="no_data_received">Error in fetching the object data</span>';
+				$this->data_fetched = 'no';
+			}
+			//---------- system datetime ENDS HERE
+
 		}
 		public function get_data_array()
 		{

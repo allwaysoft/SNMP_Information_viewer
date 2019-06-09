@@ -162,45 +162,68 @@
 								print '<span class="click">click for </span><a href="#">Running applications</a>';
 							print '</div>';
 					
-							print '<div id="block_data_3" class="block_data">';
-							
+							print '<table cellspacing="0" cellpadding="0" border="1">';
 								$data_array = null;
 								$data_array = $object->get_data_array();
-								print '<div id="row_title" class="row">';
-									print '<div class="col col_start">';
-										print '<b>Application name</b>';
-									print '</div>';
-									print '<div class="col">';
+								print '<tr>';
+									print '<td>';
+										print '<b>Name</b>';
+									print '</td>';
+									print '<td>';
 										print '<b>Memory</b>';
-									print '</div>';
-									print '<div class="col">';
-										print '<b>Application type</b>';
-									print '</div>';
-									print '<div class="col">';
-										print '<b>Run status</b>';
-									print '</div>';
-								print '</div>';
+									print '</td>';
+									print '<td>';
+										print '<b>Type</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>Status</b>';
+									print '</td>';
+                                    print '<td>';
+										print '<b>ID</b>';
+									print '</td>';
+                                    print '<td>';
+										print '<b>Path</b>';
+									print '</td>';
+                                    print '<td>';
+										print '<b>Parameter</b>';
+									print '</td>';
+                                    print '<td>';
+										print '<b>CPU</b>';
+									print '</td>';
+								print '</tr>';
 								
 								$row_number = count($data_array[0]);
 								for($i=0; $i<$row_number; $i++)
 								{
-									print '<div id="row_number_'.($i+1).'" class="row">';
-										print '<div class="col col_start">';
+									print '<tr>';
+										print '<td>';
 											print $data_array[0][$i];
-										print '</div>';
-										print '<div class="col">';
+										print '</td>';
+										print '<td>';
 											print $data_array[1][$i];
-										print '</div>';
-										print '<div class="col">';
+										print '</td>';
+										print '<td>';
 											print $data_array[2][$i];
-										print '</div>';
-										print '<div class="col">';
+										print '</td>';
+										print '<td>';
 											print $data_array[3][$i];
-										print '</div>';
-									print '</div>';
+										print '</td>';
+                                        print '<td>';
+											print $data_array[4][$i];
+										print '</td>';
+                                        print '<td>';
+											print $data_array[5][$i];
+										print '</td>';
+                                        print '<td>';
+											print $data_array[6][$i];
+										print '</td>';
+                                        print '<td>';
+											print $data_array[7][$i];
+										print '</td>';
+									print '</tr>';
 								}
 								
-							print '</div>';
+							print '</table>';
 				
 						print '</div>';
 					}
@@ -208,6 +231,141 @@
 				}
 				
 				//----------------------------------------------------------------
+            
+            				/*+----------------------------------------------+
+				*|         Displaying TCP_Connections       |
+				*+-----------------------------------------------+
+				*/
+				
+				//----------------------------------------------------------------
+				
+				if($operating_system_name != 'unknown')
+				{
+					$object = null;
+					include('include/TCP_Connections.php');
+					$object = new TCP_Connections($operating_system_name, $_POST['host_address']);
+					
+					if($object->data_fetched == 'yes')
+					{
+						print '<div id="running_applications" class="information">';
+				
+							print '<div id="block_header_id_5" class="block_header">';
+								print '<span class="click">click for </span><a href="#">TCP Connections</a>';
+							print '</div>';
+					
+							print '<table cellspacing="0" cellpadding="0" border="1">';
+							
+								$data_array = null;
+								$data_array = $object->get_data_array();
+								print '<tr>';
+									print '<td>';
+										print '<b>LocalAddress</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>LocalPort</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>RemAddress</b>';
+									print '</td>';
+                                    print '<td>';
+										print '<b>RemPort</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>State</b>';
+									print '</td>';
+								print '</tr>';
+								
+								$row_number = count($data_array[0]);
+								for($i=0; $i<$row_number; $i++)
+								{
+									print '<tr>';
+										print '<td>';
+											print $data_array[1][$i];
+										print '</td>';
+										print '<td>';
+											print $data_array[2][$i];
+										print '</td>';
+										print '<td>';
+											print $data_array[3][$i];
+										print '</td>';
+                                        print '<td>';
+											print $data_array[4][$i];
+										print '</td>';
+										print '<td>';
+											print $data_array[0][$i];
+										print '</td>';
+									print '</tr>';
+								}
+								
+							print '</table';
+				
+						print '</div>';
+					}
+					
+				}
+				
+				//----------------------------------------------------------------
+
+
+				//----------------------------------------------------------------
+            
+            				/*+----------------------------------------------+
+				*|         Displaying UDP_Connections       |
+				*+-----------------------------------------------+
+				*/
+				
+				//----------------------------------------------------------------
+				
+				if($operating_system_name != 'unknown')
+				{
+					$object = null;
+					include('include/UDP_Connections.php');
+					$object = new UDP_Connections($operating_system_name, $_POST['host_address']);
+					
+					if($object->data_fetched == 'yes')
+					{
+						print '<div id="running_applications" class="information">';
+				
+							print '<div id="block_header_id_6" class="block_header">';
+								print '<span class="click">click for </span><a href="#">UDP Connections</a>';
+							print '</div>';
+					
+							print '<table cellspacing="0" cellpadding="0" border="1">';
+							
+								$data_array = null;
+								$data_array = $object->get_data_array();
+								print '<tr>';
+									print '<td>';
+										print '<b>LocalAddress</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>LocalPort</b>';
+									print '</td>';
+								print '</tr>';
+								
+								$row_number = count($data_array[0]);
+								for($i=0; $i<$row_number; $i++)
+								{
+									print '<tr>';
+										print '<td>';
+											print $data_array[0][$i];
+										print '</td>';
+										print '<td>';
+											print $data_array[1][$i];
+										print '</td>';
+									print '</tr>';
+								}
+								
+							print '</table>';
+				
+						print '</div>';
+					}
+					
+				}
+				
+				//----------------------------------------------------------------
+
+
                 
                 /*+----------------------------------------------+
 				*|       Displaying installed information        |
@@ -226,22 +384,34 @@
 								print '<span class="click">click for </span><a href="#">Installed Applications</a>';
 							print '</div>';
 							
-							print '<div id="block_data_4" class="block_data">';
+							print '<table cellspacing="0" cellpadding="0" border="1">';
 							
 								$data_array = null;
 								$data_array = $object->get_data_array();
+								print '<tr>';
+									print '<td>';
+										print '<b>Name</b>';
+									print '</td>';
+									print '<td>';
+										print '<b>Installation Datetime</b>';
+									print '</td>';
+								print '</tr>';
 								for($i=0; $i<count($data_array[0]); $i++)
                                 {
                                     $installation_date = explode(',', $data_array[2][$i])[0];
                                     $installation_time = explode('.', explode(',', $data_array[2][$i])[1])[0];
-                                    print '<div class="installed_application_class">';
-                                        print '<b>'.$data_array[1][$i].'</b><br>';
-                                        print 'Installation date : '.$installation_date.'<br>';
-                                        print 'Installation time : '.$installation_time.'<br>';
-                                    print '</div>';
+                                    print '<tr>';
+                                        print '<td>';
+                                            print $data_array[1][$i];
+                                        print '</td>';
+                                        print '<td>';
+                                            print $installation_date.'&nbsp';
+                                            print $installation_time;
+                                        print '</td>';
+                                    print '</tr>';
                                 }
                                 
-							print '</div>';
+							print '</table>';
 							
 						print '</div>';
 					}

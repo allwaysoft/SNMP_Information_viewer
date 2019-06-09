@@ -17,11 +17,20 @@ error_reporting(0);
         }
         private function create_data_array_windows()
         {
+
             $application_name       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunName");
             $application_memory     = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRunPerf.hrSWRunPerfTable.hrSWRunPerfEntry.hrSWRunPerfMem");
             $application_type       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunType");
             $application_run_status = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunStatus");
+            $application_id       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunIndex");
+            $application_path       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunPath");
+            $application_parameter       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRun.hrSWRunTable.hrSWRunEntry.hrSWRunParameters");
+            $application_cpu       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.host.hrSWRunPerf.hrSWRunPerfTable.hrSWRunPerfEntry.hrSWRunPerfCPU");
             if(
+                $application_id       != FALSE and
+                $application_path       != FALSE and
+                $application_parameter       != FALSE and
+                $application_cpu       != FALSE and
                 $application_name       != FALSE and
                 $application_memory     != FALSE and
                 $application_type       != FALSE and
@@ -35,6 +44,10 @@ error_reporting(0);
                 $count[1] = count($application_memory);
                 $count[2] = count($application_type);
                 $count[3] = count($application_run_status);
+                $count[4] = count($application_id);
+                $count[5] = count($application_path);
+                $count[6] = count($application_parameter);
+                $count[7] = count($application_cpu);
                 for($i=0; $i<count($count); $i++)
                 {
                     if($count[$i] == $length)
@@ -53,15 +66,19 @@ error_reporting(0);
             }
             if($this->data_fetched == 'yes')
             {
-                $this->populate_data_array($application_name, $application_memory, $application_type, $application_run_status);
+                $this->populate_data_array($application_name, $application_memory, $application_type, $application_run_status,$application_id,$application_path,$application_parameter,$application_cpu);
             }
         }
-        private function populate_data_array($application_name, $application_memory, $application_type, $application_run_status)
+        private function populate_data_array($application_name, $application_memory, $application_type, $application_run_status,$application_id,$application_path,$application_parameter,$application_cpu)
         {
             $name       = array();
             $memory     = array();
             $type       = array();
             $run_status = array();
+            $id         = array();
+            $path         = array();
+            $parameter         = array();
+            $cpu         = array();
                         
             //---------------------------------------------------------------------------------------
             $i = 0;
@@ -158,11 +175,106 @@ error_reporting(0);
             }
             $application_run_status = null;
             //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
                         
+            $i = 0;
+            foreach($application_id as $key => $value)
+            {
+                $data       = str_replace('INTEGER: ', '', $value);
+                $id[$i] = $data;
+                $i = $i + 1;
+            }
+            $application_id = null;
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+                        
+            $i = 0;
+            foreach($application_path as $key => $value)
+             { 
+                $data = $value;
+                if(strlen($data) == 0)
+                {
+                    $data = '<span id="no_data_received"><b>No data received</b></span>';
+                }
+                else
+                {
+                    if($data == 'STRING: ')
+                    {
+                        $data = '<span id="no_data_received"><b>No data received</b></span>';
+                    }
+                    else
+                    {
+                        if(substr_count($data, 'STRING: ') > 0)
+                        {
+                            $data = substr($data, strlen('STRING: '), strlen($data));
+                        }
+                        else
+                        {
+                            $data = $data;
+                        }
+                    }
+                }                    
+                $data = str_replace('"', '', $data);
+                $path[$i] = $data;
+                $i = $i + 1;
+            }
+            $application_path = null;
+            //---------------------------------------------------------------------------------------
+                        //---------------------------------------------------------------------------------------
+                        
+            $i = 0;
+            foreach($application_parameter as $key => $value)
+             { 
+                $data = $value;
+                if(strlen($data) == 0)
+                {
+                    $data = '<span id="no_data_received"><b>No data received</b></span>';
+                }
+                else
+                {
+                    if($data == 'STRING: ')
+                    {
+                        $data = '<span id="no_data_received"><b>No data received</b></span>';
+                    }
+                    else
+                    {
+                        if(substr_count($data, 'STRING: ') > 0)
+                        {
+                            $data = substr($data, strlen('STRING: '), strlen($data));
+                        }
+                        else
+                        {
+                            $data = $data;
+                        }
+                    }
+                }                    
+                $data = str_replace('"', '', $data);
+                $parameter[$i] = $data;
+                $i = $i + 1;
+            }
+            $application_parameter = null;
+            //---------------------------------------------------------------------------------------
+                        //---------------------------------------------------------------------------------------
+                        
+            $i = 0;
+            foreach($application_cpu as $key => $value)
+            {
+                $data       = str_replace('INTEGER: ', '', $value);
+                $cpu[$i] = $data;
+                $i = $i + 1;
+            }
+            $application_cpu = null;
+            //---------------------------------------------------------------------------------------
+                                    
             $this->data_array[0] = $name;
             $this->data_array[1] = $memory;
             $this->data_array[2] = $type;
             $this->data_array[3] = $run_status;
+            $this->data_array[4] = $id;
+            $this->data_array[5] = $path;
+            $this->data_array[6] = $parameter;
+            $this->data_array[7] = $cpu;
+                                                
         }
         public function get_data_array()
         {

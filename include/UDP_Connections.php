@@ -17,9 +17,12 @@ error_reporting(0);
         }
         private function create_data_array_windows()
         {
-
-            $udpLocalAddress       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.udp.udpTable.udpEntry.udpLocalAddress");
-            $udpLocalPort     = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.udp.udpTable.udpEntry.udpLocalPort");
+            $udp = array();
+            $result = snmpwalk($this->host_address, "public", '.iso.org.dod.internet.mgmt.mib-2.udp.udpTable.udpEntry');
+            $udp = array_chunk($result,count($result)/2);
+        
+            $udpLocalAddress        = $udp[0];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.udp.udpTable.udpEntry.udpLocalAddress");
+            $udpLocalPort           = $udp[1];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.udp.udpTable.udpEntry.udpLocalPort");
             if(
                 $udpLocalAddress       != FALSE and
                 $udpLocalPort != FALSE

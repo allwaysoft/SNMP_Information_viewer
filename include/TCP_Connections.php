@@ -17,12 +17,22 @@ error_reporting(0);
         }
         private function create_data_array_windows()
         {
+            		$tcp = array();
+		$result = snmpwalk($this->host_address, "public", '1.3.6.1.2.1.6.13.1');
+        $tcp = array_chunk($result,count($result)/5);
+//		return $tcp;
+            
+//            $tcpConnState       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnState");
+//            $tcpConnLocalAddress     = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalAddress");
+//            $tcpConnLocalPort       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalPort");
+//            $tcpConnRemAddress = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemAddress");
+//            $tcpConnRemPort       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemPort");
+            $tcpConnState               = $tcp[0];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnState");
+            $tcpConnLocalAddress        = $tcp[1];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalAddress");
+            $tcpConnLocalPort           = $tcp[2];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalPort");
+            $tcpConnRemAddress          = $tcp[3];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemAddress");
+            $tcpConnRemPort             = $tcp[4];//snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemPort");
 
-            $tcpConnState       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnState");
-            $tcpConnLocalAddress     = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalAddress");
-            $tcpConnLocalPort       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnLocalPort");
-            $tcpConnRemAddress = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemAddress");
-            $tcpConnRemPort       = snmpwalkoid($this->host_address, "public", ".iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry.tcpConnRemPort");
             if(
                 $tcpConnState       != FALSE and
                 $tcpConnLocalAddress       != FALSE and

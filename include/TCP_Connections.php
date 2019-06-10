@@ -18,7 +18,7 @@ error_reporting(0);
         private function create_data_array_windows()
         {
             		$tcp = array();
-		$result = snmpwalk($this->host_address, "public", '1.3.6.1.2.1.6.13.1');
+		$result = snmpwalk($this->host_address, "public", '.iso.org.dod.internet.mgmt.mib-2.tcp.tcpConnTable.tcpConnEntry');
         $tcp = array_chunk($result,count($result)/5);
 //		return $tcp;
             

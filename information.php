@@ -371,6 +371,9 @@
 									print '<td>';
 										print '<b>Installation Datetime</b>';
 									print '</td>';
+                                    print '<td>';
+										print '<b>Type</b>';
+									print '</td>';
 								print '</tr>';
 								for($i=0; $i<count($data_array[0]); $i++)
                                 {
@@ -383,6 +386,9 @@
                                         print '<td>';
                                             print $installation_date.'&nbsp';
                                             print $installation_time;
+                                        print '</td>';
+                                        print '<td>';
+                                            print $data_array[0][$i];
                                         print '</td>';
                                     print '</tr>';
                                 }

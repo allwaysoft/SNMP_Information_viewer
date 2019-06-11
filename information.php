@@ -11,22 +11,6 @@
         </style>
         <link href="css/common.css" rel="stylesheet" type="text/css" />
         <link href="css/information.css" rel="stylesheet" type="text/css" />
-        <?php
-            print '<script type="text/javascript" src="jQuery/jquery-1.7.1.min.js"></script>';
-            print '<script type="text/javascript" src="jQuery/jquery.easing.1.3.js"></script>';
-            print '<script type="text/javascript" src="jQuery/jquery.easing.compatibility.js"></script>';
-        ?>
-        <script type="text/javascript">
-            jQuery(document).ready(
-                function()
-                {
-                    jQuery("#block_data_1").hide();
-					jQuery("#block_data_2").hide();
-					jQuery("#block_data_3").hide();
-                    jQuery("#block_data_4").hide();
-                }
-            );
-        </script>
 		
     </head>
     <body id="body_id" class="body_common">
@@ -247,11 +231,7 @@
 					
 					if($object->data_fetched == 'yes')
 					{
-						print '<div id="running_applications" class="information">';
-				
-							print '<div id="block_header_id_5" class="block_header">';
-								print '<span class="click">click for </span><a href="#">TCP Connections</a>';
-							print '</div>';
+							print 'TCP Connections';
 					
 							print '<table cellspacing="0" cellpadding="0" border="1">';
 							
@@ -297,9 +277,9 @@
 									print '</tr>';
 								}
 								
-							print '</table';
+							print '</table>';
 				
-						print '</div>';
+
 					}
 					
 				}
@@ -324,11 +304,9 @@
 					
 					if($object->data_fetched == 'yes')
 					{
-						print '<div id="running_applications" class="information">';
-				
-							print '<div id="block_header_id_6" class="block_header">';
-								print '<span class="click">click for </span><a href="#">UDP Connections</a>';
-							print '</div>';
+						
+							print 'UDP Connections';
+						
 					
 							print '<table cellspacing="0" cellpadding="0" border="1">';
 							
@@ -357,8 +335,6 @@
 								}
 								
 							print '</table>';
-				
-						print '</div>';
 					}
 					
 				}
@@ -431,117 +407,6 @@
             
             include('include/footer.php');
         ?>
-		<script>
-			var showExperiments_1 = true;
-			var showExperiments_2 = true;
-			var showExperiments_3 = true;
-            var showExperiments_4 = true;
-		</script>
-		<script>
-			
-            jQuery("#block_header_id_1").click(
-                function()
-                {
-                    if(showExperiments_1 == true)
-                    {
-                        jQuery("#block_data_1").slideDown(1000);
-						jQuery("#block_header_id_1").css({
-							'text-shadow': '2px 2px 2px #69e420'
-						});
-						jQuery("#block_header_id_1 .click").hide();
-                        showExperiments_1 = false;
-                    }
-                    else
-                    {
-                        jQuery("#block_data_1").slideUp(1000);
-						jQuery("#block_header_id_1").css({
-							'text-shadow': '2px 2px 2px #808080'
-						});
-						jQuery("#block_header_id_1 .click").show();
-                        showExperiments_1 = true;
-                    }
-                }
-            );
-		</script>
-		
-		<script>
-			
-            jQuery("#block_header_id_2").click(
-                function()
-                {
-                    if(showExperiments_2 == true)
-                    {
-                        jQuery("#block_data_2").slideDown(2000);
-						jQuery("#block_header_id_2").css({
-							'text-shadow': '2px 2px 2px #69e420'
-						});
-						jQuery("#block_header_id_2 .click").hide();
-                        showExperiments_2 = false;
-                    }
-                    else
-                    {
-                        jQuery("#block_data_2").slideUp(2000);
-						jQuery("#block_header_id_2").css({
-							'text-shadow': '2px 2px 2px #808080'
-						});
-						jQuery("#block_header_id_2 .click").show();
-                        showExperiments_2 = true;
-                    }
-                }
-            );
-		</script>
-		
-		<script>
-			
-            jQuery("#block_header_id_3").click(
-                function()
-                {
-                    if(showExperiments_3 == true)
-                    {
-                        jQuery("#block_data_3").slideDown(2000);
-						jQuery("#block_header_id_3").css({
-							'text-shadow': '2px 2px 2px #69e420'
-						});
-						jQuery("#block_header_id_3 .click").hide();
-                        showExperiments_3 = false;
-                    }
-                    else
-                    {
-                        jQuery("#block_data_3").slideUp(2000);
-						jQuery("#block_header_id_3").css({
-							'text-shadow': '2px 2px 2px #808080'
-						});
-						jQuery("#block_header_id_3 .click").show();
-                        showExperiments_3 = true;
-                    }
-                }
-            );
-		</script>
-        <script>
-			
-            jQuery("#block_header_id_4").click(
-                function()
-                {
-                    if(showExperiments_4 == true)
-                    {
-                        jQuery("#block_data_4").slideDown(2000);
-						jQuery("#block_header_id_4").css({
-							'text-shadow': '2px 2px 2px #69e420'
-						});
-						jQuery("#block_header_id_4 .click").hide();
-                        showExperiments_4 = false;
-                    }
-                    else
-                    {
-                        jQuery("#block_data_4").slideUp(2000);
-						jQuery("#block_header_id_4").css({
-							'text-shadow': '2px 2px 2px #808080'
-						});
-						jQuery("#block_header_id_4 .click").show();
-                        showExperiments_4 = true;
-                    }
-                }
-            );
-		</script>
+
     </body>
 </html>
